@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name" translatable="false">MobileMes</string>
+    <string name="authorizationLabel">Welcome</string>
+    <string name="loginField">Login</string>
+    <string name="passwordField">Password</string>
+    <string name="signInButton">Sign In</string>
+    <string name="signUpButton">Sign Up</string>
+    <string name="errorInputData">Not all fields are filled</string>
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >4 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="regname" />
+    <string name="reglabel">Registration</string>
+    <string name="radiobuttonMan">RadioButton</string>
+    <string name="radiobuttonWomen">RadioButton</string>
+    <string name="repet_password">Repet password</string>
+    <string name="RegBdayDate">Date</string>
+    <string name="RegPassword">Password</string>
+    <string name="RegEmail">Email</string>
+    <string name="RegName">Name</string>
+    <string name="RegLogin">Login</string>
+    <string name="RegSurname">Surname</string>
+    <string name="registration">Registration</string>
+    <string name="CountryTitle">Entry your country</string>
+    <string name="todo">TODO</string>
+    <string name="sendPrivateMSGuserButton">Send message</string>
+    <string name="privateLabelWithLogin">Message with:</string>
+    <string name="NameAndSurnName">Name</string>
+    <string name="country">Country</string>
+    <string name="emailAdress">email </string>
+    <string name="bDay">BDay</string>
+    <string name="WriteLoginToSearch">Enter login for search</string>
+    <string name="ErrorMsg1">BDay</string>
+    <string name="ErrorMsg2">BDay</string>
+    <string name="ErrorMsg3">BDay</string>
+    <string name="ErrorMsg4">BDay</string>
+    <string name="privateNotification"> прислал вам личное сообщение</string>
+    <string name="logo">MobileMess:</string>
+    <string name="publicChat">Общий чат</string>
+
+    <string-array name="ChatSettings">
+        <item>Choice one variant</item>
+        <item>Clear panel</item>
+        <item>Disconnect</item>
+        <item>Connect</item>
+    </string-array>
+
+</resources>

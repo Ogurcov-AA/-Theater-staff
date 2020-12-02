@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/regProgressBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_img"
+    tools:context=".RegistrationActivity">
+
+    <EditText
+        android:id="@+id/RegSurnameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/RegSurname"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#BCB6B6"
+        android:textColorHint="#8A888686"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegNameEditText"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="66dp" />
+
+    <EditText
+        android:id="@+id/RegLoginEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/RegLogin"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        android:text="@string/regname"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#BCB6B6"
+        android:textColorHint="#8A888686"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/RegNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/RegName"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#BCB6B6"
+        android:textColorHint="#8A888686"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegLoginEditText"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/reglabel"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#BCB6B6"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/RegEmailEditText"
+        android:layout_width="277dp"
+        android:layout_height="52dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/RegEmail"
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#BCB6B6"
+        android:textColorHint="#8A888686"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegSurnameEditText"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="67dp" />
+
+    <EditText
+        android:id="@+id/RegPasswordEditText"
+        android:layout_width="277dp"
+        android:layout_height="52dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/RegPassword"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#BCB6B6"
+        android:textColorHint="#8A888686"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegEmailEditText"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="66dp" />
+
+    <EditText
+        android:id="@+id/RegPasswordEditText2"
+        android:layout_width="277dp"
+        android:layout_height="52dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/repet_password"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#BCB6B6"
+
+        android:textColorHint="#8A888686"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegPasswordEditText"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="66dp" />
+
+    <EditText
+        android:id="@+id/RegBdayEditTextDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/RegBdayDate"
+        android:inputType="date"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#BCB6B6"
+
+        android:textColorHint="#8A888686"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RadioButtonGroup"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="67dp" />
+
+    <RadioGroup
+        android:id="@+id/RadioButtonGroup"
+        android:layout_width="215dp"
+        android:layout_height="61dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegPasswordEditText2"
+        tools:ignore="MissingConstraints">
+
+        <RadioButton
+            android:id="@+id/radioButtonMale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:shadowColor="#FFFFFF"
+            android:text="@string/radiobuttonMan"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#BCB6B6"
+            android:textColorLink="#DF1010"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Man" />
+
+        <RadioButton
+            android:id="@+id/radioButtonWomen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radiobuttonWomen"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#BCB6B6"
+            android:textColorHint="#8A888686"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Women" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/acceptRegButton"
+        android:layout_width="277dp"
+        android:layout_height="52dp"
+
+        android:onClick="regButtonClck"
+        android:text="@string/registration"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints,OnClick" />
+
+    <Spinner
+        android:id="@+id/spiner"
+        android:layout_width="159dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@android:color/background_light"
+        android:entries="@array/diaps_array"
+        android:popupBackground="@android:color/background_light"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/RadioButtonGroup"
+        app:layout_constraintTop_toBottomOf="@+id/RegPasswordEditText2"
+        tools:ignore="MissingConstraints"
+        tools:targetApi="lollipop" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/acceptRegButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

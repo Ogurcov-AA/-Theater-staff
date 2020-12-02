@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="authorizationLabel">Добро Пожаловать</string>
+    <string name="loginField">Логин</string>
+    <string name="passwordField">Пароль</string>
+    <string name="signInButton">Войти</string>
+    <string name="signUpButton">Зарегистрироваться</string>
+    <string name="errorInputData">Не все поля заполнены</string>
+    <string name="prompt_email">эл.почта</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Вход/Регистрация</string>
+    <string name="action_sign_in_short">Войти</string>
+    <string name="welcome">Добро пожаловать</string>
+    <string name="invalid_username">"Некорректное имя "</string>
+    <string name="invalid_password">Пароль маленькой длины</string>
+    <string name="login_failed">Ошибка входа</string>
+    <string name="regname" />
+    <string name="reglabel">Регистрация</string>
+    <string name="radiobuttonMan">Мужсой</string>
+    <string name="radiobuttonWomen">Женский</string>
+    <string name="repet_password">Повторите пароль</string>
+    <string name="RegBdayDate">Дата</string>
+    <string name="RegPassword">Пароль</string>
+    <string name="RegEmail">эл.почта</string>
+    <string name="RegName">Имя</string>
+    <string name="RegLogin">Логин</string>
+    <string name="RegSurname">Фамилия</string>
+    <string name="registration">Зарегистрироваться</string>
+    <string name="CountryTitle">Выберите страну</string>
+    <string name="todo">TODO</string>
+    <string name="sendPrivateMSGuserButton">Написать сообщение</string>
+    <string name="privateLabelWithLogin">Диалог с:</string>
+    <string name="NameAndSurnName">Имя и фамилия</string>
+    <string name="country">Страна</string>
+    <string name="emailAdress">email адрес</string>
+    <string name="bDay">День рождения</string>
+    <string name="WriteLoginToSearch">Введите логин для поиска</string>
+    <string name="ErrorMsg1">Ошибка соединения с сервером</string>
+    <string name="ErrorMsg2">Неверный логин</string>
+    <string name="ErrorMsg3">Неверный логин или пароль</string>
+    <string name="ErrorMsg4">Ошибка</string>
+    <string name="privateNotification"> прислал вам личное сообщение</string>
+    <string name="logo">MobileMess:</string>
+    <string name="publicChat">Общий чат</string>
+
+
+    <string-array name="ChatSettings">
+        <item>Выберите один вариант</item>
+        <item>Очистить поле</item>
+        <item>Отключиться</item>
+        <item>Подключиться</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string-array name="diaps_array" android:textColor="@android:color/background_light">
+    <item>Беларусь</item>
+    <item>Россия</item>
+    <item>Украина</item>
+</string-array>
+</resources>
