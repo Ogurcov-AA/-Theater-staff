@@ -1,0 +1,6 @@
+<application>
+  <component name="PathMacrosImpl">
+    <macro name="KOTLIN_BUNDLED" value="D:\Android Studio\plugins\Kotlin\kotlinc" />
+    <macro name="PATH_TO_FX" value="C:/javafx-sdk-11.0.2/lib" />
+  </component>
+</application>
