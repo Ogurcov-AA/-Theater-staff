@@ -389,7 +389,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 } else {
                     finish();
                 }
-
             } else {
                 finish();
             }
@@ -397,7 +396,7 @@ public class MainMenuActivity extends AppCompatActivity {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
+//cddc
     private void openActivity() {
     }
     /////////////////////////////
