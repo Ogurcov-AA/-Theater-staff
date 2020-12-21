@@ -1,7 +1,5 @@
 package com.example.lib;
 
-import org.omg.PortableServer.THREAD_POLICY_ID;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,9 +8,6 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-
-import sun.rmi.runtime.Log;
-
 
 public class Connection implements Runnable{
         private Socket socket;

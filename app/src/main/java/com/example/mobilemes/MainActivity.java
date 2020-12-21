@@ -2,8 +2,10 @@ package com.example.mobilemes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -29,11 +31,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
         reConnectionButton = this.findViewById(R.id.reConnectionButton);
         progressBar = this.findViewById(R.id.progressBar);
         isNetworkAvailable();
-        new ProgressTask().execute();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeReceiver, intentFilter);
      }
+
+    private BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            NetworkInfo info1 = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager
+                    .EXTRA_NETWORK_INFO);
+            if(info1.getState().equals(NetworkInfo.State.DISCONNECTED)){
+
+            }
+            else {
+                new ProgressTask().execute();
+            }
+
+        }
+    };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(networkChangeReceiver);
+    }
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager

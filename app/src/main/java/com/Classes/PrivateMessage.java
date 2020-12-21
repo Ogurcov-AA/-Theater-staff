@@ -21,8 +21,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -161,7 +164,9 @@ public class PrivateMessage implements ConnectionLis {
     public void SendMes(String msg){
         msg = "/pm " + Currentkey + " " + msg;
         System.out.println(msg);
-        InputLogFile(msg.substring(msg.indexOf(' ')+1));
+        Date date = new Date();
+        DateFormat tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        InputLogFile(msg.substring(msg.indexOf(' ')+1) + " (" + tt.format(date) + ")");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             msg = Base64.getEncoder().encodeToString(msg.getBytes());
         }

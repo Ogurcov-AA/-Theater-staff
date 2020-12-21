@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -17,20 +18,26 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.app.usage.UsageEvents;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -51,8 +58,12 @@ import android.widget.Toast;
 import com.Classes.MessageHandling;
 import com.Classes.PrivateMessage;
 import com.Classes.UserInfo;
+import com.example.mobilemes.ui.login.LoginActivity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -68,6 +79,9 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         getSupportActionBar().hide();
         InitialazeView();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeReceiver, intentFilter);
         Bundle arguments = getIntent().getExtras();
         if( arguments != null){
             setDataAboutMePanel();
@@ -118,8 +132,10 @@ public class MainMenuActivity extends AppCompatActivity {
     public TextView UserCountryLabel;
     public TextView UserNameLabel;
     public TextView UserLoginLabel;
+    public ArrayList<String> userList;
 
-    public void InitialazeView(){
+
+    private void InitialazeView(){
         homeButton = this.findViewById(R.id.homeButton);
         publicButtonChat = this.findViewById(R.id.publicChatButton);
         loginLabel = this.findViewById(R.id.loginLabel);
@@ -149,7 +165,54 @@ public class MainMenuActivity extends AppCompatActivity {
         UserCountryLabel = this.findViewById(R.id.UserCountryLabel);
         UserNameLabel = this.findViewById(R.id.UserNameLabel);
         UserLoginLabel = this.findViewById(R.id.UserLoginLabel);
+        userList = new ArrayList<>();
+        listnerSearchUsers();
         SetListView();
+    }
+
+
+    public void listnerSearchUsers(){
+        userList.clear();
+        searchTextField.addTextChangedListener ( new TextWatcher() {
+            public void afterTextChanged ( Editable s ) {
+                if(searchTextField.getText().toString().trim().equals("") ) {
+                    for (int i = 0; i < UserInfo.UserList.size(); i++) {
+                        userList.add(UserInfo.UserList.get(i).getLogin());
+                    }
+
+                    return;
+                }
+                else {
+                    for (int i = 0; i < UserInfo.UserList.size(); i++) {
+                        if(searchTextField.getText().toString().trim().equals(UserInfo.UserList.get(i).getLogin()))
+                        userList.add(UserInfo.UserList.get(i).getLogin());
+                        return;
+                    }
+                }
+            }
+
+            public void beforeTextChanged ( CharSequence s, int start, int count, int after ) {
+
+            }
+
+            public void onTextChanged ( CharSequence s, int start, int before, int count ) {
+                userList.clear();
+                System.out.println(s);
+                for (int i = 0; i < UserInfo.UserList.size(); i++) {
+                    if (UserInfo.UserList.get(i).getLogin().contains(s)) {
+                        System.out.println("+");
+                        userList.add(UserInfo.UserList.get(i).getLogin());
+                        SetListView();
+                  }
+                }
+                if(userList.size()<=0) {
+                        System.out.println("-");
+                        Toast.makeText(MainMenuActivity.this, "Нету такого пользователя", Toast.LENGTH_LONG);
+
+                        SetListView();
+                    }
+            }
+        });
     }
 
     PrivateMessage privateDialogs = new PrivateMessage();
@@ -168,6 +231,10 @@ public class MainMenuActivity extends AppCompatActivity {
         bDayLabel.setText(UserInfo.currentUser.getbDay());
         loginInPublicChat.setText(UserInfo.currentUser.getLogin());
     }
+
+    String stringChange = "";
+
+
 
     public static void buttonEffect(View button){
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -192,12 +259,13 @@ public class MainMenuActivity extends AppCompatActivity {
     public void homeButtonClick(View view) {
         buttonEffect(view);
         publicChatPanel.setVisibility(View.INVISIBLE);
-
+        privateChatPanel.setVisibility(View.INVISIBLE);
         searchPeoplePanel.setVisibility(View.INVISIBLE);
         UserInfoPanel.setVisibility(View.INVISIBLE);
         aboutMePanel.setVisibility(View.VISIBLE);
         homeButton.setEnabled(false);
         publicButtonChat.setEnabled(true);
+        searchPeopleButton.setEnabled(true);
        }
 
     public void publicButtonChatClick(View view) {
@@ -313,7 +381,9 @@ public class MainMenuActivity extends AppCompatActivity {
         if(msg.equals("")) return;
         sendPrivateMsg.setText("");
         privateDialogs.SendMes(UserInfo.currentUser.getLogin().trim() + " : " + msg);
-        privateMsgTextArea.append(UserInfo.currentUser.getLogin().trim() + " : " + msg + System.getProperty("line.separator"));
+        Date date = new Date();
+        DateFormat tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        privateMsgTextArea.append(UserInfo.currentUser.getLogin().trim() + " : " + msg + " (" +tt.format(date)+ ")" + System.getProperty("line.separator"));
     }
 
     public void CheckInputMsg(boolean flag) {
@@ -389,6 +459,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 } else {
                     finish();
                 }
+
             } else {
                 finish();
             }
@@ -396,7 +467,7 @@ public class MainMenuActivity extends AppCompatActivity {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-//cddc
+
     private void openActivity() {
     }
     /////////////////////////////
@@ -436,7 +507,7 @@ public class MainMenuActivity extends AppCompatActivity {
                             else if(privateDialogs.logs.get(i).substring(0,privateDialogs.logs.get(i).indexOf(' ')).equals("/pmLogToKey")){
                                 String msg = privateDialogs.logs.get(i).substring(privateDialogs.logs.get(i).indexOf(' ')+1);
                                 System.out.println(msg);
-                                printPrivateMsg(msg.substring(msg.indexOf(' ')+1));
+                              //  printPrivateMsg(msg.substring(msg.indexOf(' ')+1));
                                 privateDialogs.InputLogFile(msg);
                                 privateDialogs.logs.remove(privateDialogs.logs.get(i));
                               break;
@@ -480,13 +551,35 @@ public class MainMenuActivity extends AppCompatActivity {
         myThread.start();
     }
 
+    private BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            NetworkInfo info1 = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager
+                    .EXTRA_NETWORK_INFO);
+                if(info1.getState().equals(NetworkInfo.State.DISCONNECTED)){
+                    Intent home = new Intent(MainMenuActivity.super.getApplication(), MainActivity.class);
+                    startActivity(home);
+                        MainMenuActivity.super.finish();
+                }
+        }
+    };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(networkChangeReceiver);
+    }
+
+
+
     public synchronized void printMsg(String msg) {
     new Thread((Runnable)()->{
 
-    //    SpannableStringBuilder builder = new SpannableStringBuilder();
+        //    SpannableStringBuilder builder = new SpannableStringBuilder();
    //     SpannableString str1 = new SpannableString(msg + System.getProperty("line.separator"));
-        if(publicChatPanel.getVisibility() == View.INVISIBLE || !MainMenuActivity.this.hasWindowFocus()) {
-            if (!(msg.substring(0, msg.indexOf(" ")).equals(loginInPublicChat.getText().toString().trim()))) {
+        if(!MainMenuActivity.this.hasWindowFocus()) {
+            if (!(msg.substring(0, msg.indexOf(" ")).equals(loginInPublicChat.getText().toString().trim())) || publicChatPanel.getVisibility() == View.INVISIBLE) {
                 showNotification(getString(R.string.logo) + " " +getString(R.string.publicChat), msg);
             }
         }
@@ -520,14 +613,15 @@ public class MainMenuActivity extends AppCompatActivity {
         }
 
     public void SetListView(){
-        ArrayList<String> userList = new ArrayList<String>();
-
         ArrayAdapter<?> adapter1 = new ArrayAdapter<>(this,R.layout.list_view_cutstom,R.id.label,userList);
+
         if(searchTextField.getText().toString().trim().equals("") ) {
+          userList.clear();
             for (int i = 0; i < UserInfo.UserList.size(); i++) {
                 userList.add(UserInfo.UserList.get(i).getLogin());
             }
         }
+
         PeopleListView.setAdapter(adapter1);
         PeopleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -550,6 +644,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     private static String CHANNEL_ID = "MobileMess";
     private int INDEX = 1;
+
     public void showNotification(String title, String msg) {
 
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);

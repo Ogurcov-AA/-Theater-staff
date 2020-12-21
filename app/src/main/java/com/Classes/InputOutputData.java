@@ -11,7 +11,7 @@ import java.util.TimerTask;
 public class InputOutputData implements ConnectionLis {
 
     protected static final String IP_ADDR = "192.168.246.2"; // "172.20.10.12";
-    protected static final int PORT = 8153;
+    protected static final int PORT = 8163;
     public static ArrayList<String> log = new ArrayList<>();
     public static boolean flag = false;
     public static boolean flagL = false;
@@ -146,6 +146,7 @@ public class InputOutputData implements ConnectionLis {
             }
             else if(log.get(i).substring(0, log.get(i).indexOf(" ")+1).equals("user "))
             {
+            //-    System.out.println(log.get(i).substring(log.get(i).indexOf(" ")+1,log.get(i).length()));
                 setUserInfo(log.get(i).substring(log.get(i).indexOf(" ")+1,log.get(i).length()));
                 log.remove(log.get(i));
                 return true;
@@ -191,6 +192,7 @@ public class InputOutputData implements ConnectionLis {
                 return;
           }
           if(log.get(i).equals("KeyError")) {
+            //  showErrorMessage("?????? ?????", "???????? ????? ??? ??????");
               log.remove(log.get(i));
               return;
           }
@@ -243,6 +245,7 @@ public class InputOutputData implements ConnectionLis {
     public boolean OutputDate(String msgToOut){
         if(connection==null){
             CreateConnection();
+          // showErrorMessage("Ошибка соединения с бд", "Повторите попытку позже");
        return false;
         }
         else{
@@ -289,6 +292,8 @@ public class InputOutputData implements ConnectionLis {
         if (connection == null) {
             CreateConnection();
             System.out.println("==================================================");
+          //  showErrorMessage("?????? ?????????? ? ????? ??????", "?????????? ? ????? ?????? ?? ????????????," + System.getProperty("line.separator") +
+          //          "?????????? ?????");
         } else {
             connection.sendString(value);
         }

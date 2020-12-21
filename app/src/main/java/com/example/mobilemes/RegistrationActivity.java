@@ -3,10 +3,12 @@ package com.example.mobilemes;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.Classes.CheckValidDate;
 import com.Classes.InputOutputData;
+import com.example.mobilemes.ui.login.LoginActivity;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -42,7 +45,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(this, R.array.diaps_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner spinner = (Spinner) findViewById(R.id.spiner);
+        initialize();
         spinner.setAdapter(adapter);
 
         //   spinner.setPrompt(R.string.CountryTitle);
@@ -50,63 +53,78 @@ public class RegistrationActivity extends AppCompatActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view,int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
 
-                    }
-                @Override
-                public void onNothingSelected (AdapterView < ? > parent){
-                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
+    }
+
+    TextView lognTextFieldR;
+    TextView nameTextBoxR;
+    TextView surnameTextBoxR;
+    TextView emailTextFieldR;
+    TextView bDayR;
+    TextView passFieldR;
+    TextView passFieldTwoR;
+    Spinner spinner;
+    Button RegButton;
+    ProgressBar progressBar;
+    RadioButton genderButtonMaleR;
+    RadioButton genderButtonWomanR;
+
+    public void initialize() {
+        lognTextFieldR = this.findViewById(R.id.RegLoginEditText);
+        nameTextBoxR = this.findViewById(R.id.RegNameEditText);
+        surnameTextBoxR = this.findViewById(R.id.RegSurnameEditText);
+        emailTextFieldR = this.findViewById(R.id.RegEmailEditText);
+        bDayR = this.findViewById(R.id.RegBdayEditTextDate);
+        passFieldR = this.findViewById(R.id.RegPasswordEditText);
+        passFieldTwoR = this.findViewById(R.id.RegPasswordEditText2);
+        spinner = this.findViewById(R.id.spiner);
+        RegButton = this.findViewById(R.id.acceptRegButton);
+        progressBar = this.findViewById(R.id.progressBar2);
+        genderButtonMaleR = this.findViewById(R.id.radioButtonMale);
+        genderButtonWomanR = this.findViewById(R.id.radioButtonWomen);
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
 
     public void regButtonClck(View view) {
-        TextView lognTextFieldR = this.findViewById(R.id.RegLoginEditText);
-        TextView nameTextBoxR = this.findViewById(R.id.RegNameEditText);
-        TextView surnameTextBoxR =this.findViewById(R.id.RegSurnameEditText);
-        TextView emailTextFieldR = this.findViewById(R.id.RegEmailEditText);
-        TextView bDayR = this.findViewById(R.id.RegBdayEditTextDate);
-        TextView passFieldR = this.findViewById(R.id.RegPasswordEditText);
-        TextView passFieldTwoR = this.findViewById(R.id.RegPasswordEditText2);
-        Spinner spinner = this.findViewById(R.id.spiner);
-        Button RegButton = this.findViewById(R.id.acceptRegButton);
-        ProgressBar progressBar = this.findViewById(R.id.progressBar2);
-        progressBar.setVisibility(View.VISIBLE);
-        RegButton.setEnabled(false);
 
+            progressBar.setVisibility(View.VISIBLE);
+            RegButton.setEnabled(false);
+         new ProgressTask().execute();
+    }
 
+    class ProgressTask extends AsyncTask<Void, Void, Void> {
 
-        LocalDate currentDate = now();
-        RadioButton genderButtonMaleR = this.findViewById(R.id.radioButtonMale);
-        RadioButton genderButtonWomanR = this.findViewById(R.id.radioButtonWomen);
-
-        if (!checkFieldIsEmty()) {
-            ShowErrorList();
-            return;
-        }
-        if (!passFieldR.getText().toString().trim().equals(passFieldTwoR.getText().toString().trim()))
-        {
-            ErrorList.add("Пароли не совпадают");
-            ShowErrorList();
-            return;
-        }
-
-
-        Thread thread2;
-        thread2 = new Thread((Runnable)()-> {
+        @Override
+        protected Void doInBackground(Void... unu) {
+            if (!checkFieldIsEmty()) {
+                publishProgress();
+                return null;
+            }
+            if (!passFieldR.getText().toString().trim().equals(passFieldTwoR.getText().toString().trim())) {
+                ErrorList.add("Пароли не совпадают");
+                publishProgress();
+                return null;
+            }
+            LocalDate currentDate = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                currentDate = now();
+            }
             String pass;
             String msg = "";
             String salt;
+            SystemClock.sleep(500);
             try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            try {
-                salt =  validDate.generateSalt();
+                salt = validDate.generateSalt();
                 pass = validDate.bytetoString(validDate.getHashWithSalt(passFieldR.getText().toString().trim(), validDate.stringToByte(salt)));
                 msg = lognTextFieldR.getText().toString().trim() + " " + pass + " " + salt + " " +
                         nameTextBoxR.getText().toString().trim() + " " + surnameTextBoxR.getText().toString().trim() + " " +
@@ -119,24 +137,27 @@ public class RegistrationActivity extends AppCompatActivity {
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-            if (!inputOutputData.OutputDate(msg)){
-                showErrorMessage("Error", "Ошибка регистрации");
+            if (!inputOutputData.OutputDate(msg)) {
+                publishProgress();
             }
-        });
-        Thread thread1 = new Thread((Runnable)()->{
-            if(!CheckField()) {
-             ShowErrorList();
-                return;
+            if (!CheckField()) {
+                publishProgress();
+                return null;
             }
-        thread2.start();
-        });
-        thread1.start();
-        if(thread2.isInterrupted()){
-               progressBar.setVisibility(View.INVISIBLE);
-               RegButton.setEnabled(true);
+        return null;
         }
-}
+        @Override
+        protected void onProgressUpdate(Void... items) {
+            showErrorMessage("Error", "Ошибка регистрации");
 
+        }
+        @Override
+        protected void onPostExecute(Void unused) {
+            progressBar.setVisibility(View.INVISIBLE);
+            RegButton.setEnabled(true);
+
+        }
+    }
 
     boolean checkFieldIsEmty() {
         TextView lognTextFieldR = this.findViewById(R.id.RegLoginEditText);

@@ -12,7 +12,7 @@ import java.util.Base64;
 public class MessageHandling implements ConnectionLis {
 
     protected static final String IP_ADDR = "192.168.246.2"; //"172.20.10.12";
-    protected static final int PORT = 8085;
+    protected static final int PORT = 8095;
     public ArrayList<String> logs = new ArrayList<>();
 
     public Connection connection;
